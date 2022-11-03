@@ -20,7 +20,7 @@
 
 	<!-- add support for component scanning -->
 	<context:component-scan
-		base-package="com.gl.stdmgmt" />
+		base-package="com.gl.StdMgnt" />
 
 	<!-- 1. Define database datasource / connection pool -->
 	<bean id="dataSource"
@@ -49,7 +49,7 @@
 		</property>
 		<property name="annotatedClasses">
 			<list>
-				<value>com.gl.stdmgmt.model.Student</value>
+				<value>com.gl.StdMgnt.model.Student</value>
 			</list>
 		</property>
 

@@ -8,12 +8,10 @@ public interface StudentService {
 
 	public void saveStudent(Student student);
 
-	public Student findById(int id);
+	public List<Student> fetchAllStudents();
 
-	public List<Student> findAll();
+	public Student fetchStudentById(int studentId);
 
-	public void deleteStudent(int id);
-
-	public List<Student> search(String name, String department);
+	public void deleteStudentById(int studentId);
 
 }

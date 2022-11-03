@@ -2,7 +2,6 @@ package com.gl.StdMgnt.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,17 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gl.StdMgnt.service.StudentService;
+
+import lombok.RequiredArgsConstructor;
+
 import com.gl.StdMgnt.model.Student;
 
 @Controller
 @RequestMapping("students")
+@RequiredArgsConstructor
 public class StudentController {
-	@Autowired
-	StudentService studentDao;
+	private final StudentService studentService;
 
 	@GetMapping("list")
 	public String showStudents(Model model) {
-		List<Student> students = studentDao.findAll();
+		List<Student> students = this.studentService.fetchAllStudents();
 		model.addAttribute("students", students);
 		return "student-list";
 	}
@@ -36,22 +38,20 @@ public class StudentController {
 
 	@PostMapping("save")
 	public String saveStudent(Model model, @ModelAttribute("student") Student student) {
-		studentDao.saveStudent(student);
+		this.studentService.saveStudent(student);
 		return "redirect:/students/list";
 	}
 
 	@GetMapping("update")
-	public String updateStudent(Model model, @RequestParam("id") int id) {
-		Student student = studentDao.findById(id);
-		System.out.println(student);
+	public String updateStudent(Model model, @RequestParam("id") int studentId) {
+		Student student = this.studentService.fetchStudentById(studentId);
 		model.addAttribute("student", student);
 		return "student-form";
 	}
 
 	@GetMapping("delete")
-	public String deleteStudent(Model model, @RequestParam("id") int id) {
-		studentDao.deleteStudent(id);
+	public String deleteStudent(Model model, @RequestParam("id") int studentId) {
+		this.studentService.deleteStudentById(studentId);
 		return "redirect:/students/list";
 	}
-
 }

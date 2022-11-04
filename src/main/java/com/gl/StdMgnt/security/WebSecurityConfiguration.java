@@ -1,7 +1,6 @@
 package com.gl.StdMgnt.security;
 
 import static org.springframework.http.HttpMethod.*;
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -39,15 +38,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
         .antMatchers(POST,"/students/save").hasAnyRole("USER","ADMIN")
-            .antMatchers("/","/students/showFormForAdd","/students/403").hasAnyRole("USER","ADMIN")
+            .antMatchers("/","/students/showFormForAdd").hasAnyRole("USER","ADMIN")
             .antMatchers("/students/update","/students/delete").hasAnyRole("ADMIN")
             .anyRequest().authenticated()
             .and()
             .formLogin().loginProcessingUrl("/login").successForwardUrl("/").permitAll()
             .and()
             .logout().logoutSuccessUrl("/login").permitAll()
-            //.and()
-            //.exceptionHandling().accessDeniedPage("/student/403")
+            .and()
+            .exceptionHandling().accessDeniedPage("/students/403")
             .and()
             .cors().and().csrf().disable();
     }

@@ -1,5 +1,6 @@
 package com.gl.StdMgnt.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gl.StdMgnt.service.StudentService;
 
@@ -53,5 +55,13 @@ public class StudentController {
 	public String deleteStudent(Model model, @RequestParam("id") int studentId) {
 		this.studentService.deleteStudentById(studentId);
 		return "redirect:/students/list";
+	}
+
+	@RequestMapping(value = "/403")
+	public ModelAndView accesssDenied(Principal user) {
+		ModelAndView model = new ModelAndView("/403");
+		var userMsg = (user != null) ? "Hi " + user.getName() + ", " : "";
+		model.addObject("msg", userMsg + "You do not have permission to perform this action!");
+		return model;
 	}
 }

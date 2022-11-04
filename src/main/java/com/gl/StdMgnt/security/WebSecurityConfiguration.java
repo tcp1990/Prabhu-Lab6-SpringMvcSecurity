@@ -2,10 +2,10 @@ package com.gl.StdMgnt.security;
 
 import static org.springframework.http.HttpMethod.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,11 +21,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		BCryptPasswordEncoder encoder = bcryptPasswordEncoder();
-		auth.inMemoryAuthentication().withUser("user").password(encoder.encode("password")).roles("USER").and()
-				.withUser("admin").password(encoder.encode("password")).roles("ADMIN");
+	@Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+			throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
 	}
 
 	@Override
@@ -38,8 +37,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(POST, "/students/save").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/", "/students/showFormForAdd").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/students/update", "/students/delete").hasAnyRole("ADMIN").anyRequest().authenticated()
-				.and().formLogin().loginProcessingUrl("/login").successForwardUrl("/").permitAll().and().logout().logoutUrl("/logout")
-				.logoutSuccessUrl("/").permitAll().and().exceptionHandling().accessDeniedPage("/students/403")
-				.and().cors().and().csrf().disable();
+				.and().formLogin().loginProcessingUrl("/login").successForwardUrl("/").permitAll().and().logout()
+				.logoutUrl("/logout").logoutSuccessUrl("/").permitAll().and().exceptionHandling()
+				.accessDeniedPage("/students/403").and().cors().and().csrf().disable();
 	}
 }

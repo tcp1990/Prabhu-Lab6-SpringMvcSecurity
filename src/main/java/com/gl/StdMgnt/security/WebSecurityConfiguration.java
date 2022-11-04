@@ -17,37 +17,29 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
+	public BCryptPasswordEncoder bcryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		BCryptPasswordEncoder encoder = passwordEncoder();
-		auth.inMemoryAuthentication().withUser("user") // #1
-				.password(encoder.encode("password")).roles("USER").and().withUser("admin") // #2
-				.password(encoder.encode("password")).roles("ADMIN");
+		BCryptPasswordEncoder encoder = bcryptPasswordEncoder();
+		auth.inMemoryAuthentication().withUser("user").password(encoder.encode("password")).roles("USER").and()
+				.withUser("admin").password(encoder.encode("password")).roles("ADMIN");
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**"); // #3
+		web.ignoring().antMatchers("/resources/**");
 	}
 
 	@Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-        .antMatchers(POST,"/students/save").hasAnyRole("USER","ADMIN")
-            .antMatchers("/","/students/showFormForAdd").hasAnyRole("USER","ADMIN")
-            .antMatchers("/students/update","/students/delete").hasAnyRole("ADMIN")
-            .anyRequest().authenticated()
-            .and()
-            .formLogin().loginProcessingUrl("/login").successForwardUrl("/").permitAll()
-            .and()
-            .logout().logoutSuccessUrl("/login").permitAll()
-            .and()
-            .exceptionHandling().accessDeniedPage("/students/403")
-            .and()
-            .cors().and().csrf().disable();
-    }
+	protected void configure(HttpSecurity http) throws Exception {
+		http.authorizeRequests().antMatchers(POST, "/students/save").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/", "/students/showFormForAdd").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/students/update", "/students/delete").hasAnyRole("ADMIN").anyRequest().authenticated()
+				.and().formLogin().loginProcessingUrl("/login").successForwardUrl("/").permitAll().and().logout()
+				.logoutSuccessUrl("/login").permitAll().and().exceptionHandling().accessDeniedPage("/students/403")
+				.and().cors().and().csrf().disable();
+	}
 }

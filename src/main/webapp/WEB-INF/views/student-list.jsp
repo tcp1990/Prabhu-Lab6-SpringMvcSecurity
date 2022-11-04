@@ -32,10 +32,23 @@
 		<h2 style="text-align: center;">Annual Fest 2022</h2>
 		<hr style="background-color: white; height: 2px;">
 
-		<p>
-			<a class="btn btn-secondary btn-outline-warning btn-lg"
-				href="showStudentForm">Add Student</a>
-		</p>
+		<table style="width: 100%">
+			<tr>
+				<td style="text-align: left">
+					<p>
+						<a class="btn btn-secondary btn-outline-warning btn-lg"
+							href="showStudentForm">Add Student</a>
+					</p>
+				</td>
+				<td style="text-align: right">
+					<p>
+						<a class="btn btn-secondary btn-outline-warning btn-lg"
+							href="<c:url value="/logout" />">Logout</a>
+					</p>
+				</td>
+			</tr>
+		</table>
+
 		<hr style="background-color: white; height: 2px;">
 		<div class="container">
 			<table class="table data">
@@ -57,7 +70,8 @@
 							<td>${student.country}</td>
 							<td><a class="btn btn-warning"
 								href="update?id=${student.id}">Update</a> | <a
-								class="btn btn-danger" href="delete?id=${student.id}">Delete</a>
+								class="btn btn-danger" href="delete?id=${student.id}"
+								onclick="return confirm('Are you sure you want to delete?')">Delete</a>
 							</td>
 						</tr>
 					</tbody>

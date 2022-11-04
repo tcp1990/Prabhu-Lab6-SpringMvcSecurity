@@ -38,8 +38,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(POST, "/students/save").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/", "/students/showFormForAdd").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/students/update", "/students/delete").hasAnyRole("ADMIN").anyRequest().authenticated()
-				.and().formLogin().loginProcessingUrl("/login").successForwardUrl("/").permitAll().and().logout()
-				.logoutSuccessUrl("/login").permitAll().and().exceptionHandling().accessDeniedPage("/students/403")
+				.and().formLogin().loginProcessingUrl("/login").successForwardUrl("/").permitAll().and().logout().logoutUrl("/logout")
+				.logoutSuccessUrl("/").permitAll().and().exceptionHandling().accessDeniedPage("/students/403")
 				.and().cors().and().csrf().disable();
 	}
 }

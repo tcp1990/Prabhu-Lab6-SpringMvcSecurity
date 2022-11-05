@@ -55,7 +55,8 @@
 				<thead>
 					<tr>
 						<th>S.No</th>
-						<th>Name</th>
+						<th>FirstName</th>
+						<th>LastName</th>
 						<th>Department</th>
 						<th>Country</th>
 						<th>Action</th>
@@ -65,7 +66,8 @@
 					<tbody>
 						<tr>
 							<td>${c.count}</td>
-							<td>${student.name}</td>
+							<td>${student.firstName}</td>
+							<td>${student.lastName}</td>
 							<td>${student.department}</td>
 							<td>${student.country}</td>
 							<td><a class="btn btn-warning"

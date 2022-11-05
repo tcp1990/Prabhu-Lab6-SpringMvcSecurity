@@ -28,13 +28,13 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
 	@GenericGenerator(name = "native", strategy = "native")
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	private long userId;
 
 	private String username;
 
 	private String password;
-	
+
 	@Column(name = "email_address")
 	private String emailAddress;
 

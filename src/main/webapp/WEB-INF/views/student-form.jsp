@@ -41,8 +41,14 @@
 								name="id" value="${student.id}">
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Enter Name"
-								name="name" value="${student.name}">
+							<input type="text" class="form-control"
+								placeholder="Enter FirstName" name="firstName"
+								value="${student.firstName}">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control"
+								placeholder="Enter LastName" name="lastName"
+								value="${student.lastName}">
 						</div>
 						<div class="form-group">
 							<input type="text" class="form-control"

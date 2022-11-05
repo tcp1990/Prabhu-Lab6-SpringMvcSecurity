@@ -65,7 +65,7 @@
 				<c:forEach var="student" items="${students}" varStatus="c">
 					<tbody>
 						<tr>
-							<td>${c.count}</td>
+							<td>${student.id}</td>
 							<td>${student.firstName}</td>
 							<td>${student.lastName}</td>
 							<td>${student.department}</td>

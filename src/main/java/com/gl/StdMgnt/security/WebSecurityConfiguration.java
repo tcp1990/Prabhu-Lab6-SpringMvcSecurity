@@ -34,11 +34,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(POST, "/students/save").hasAnyRole("USER", "ADMIN")
-				.antMatchers("/", "/students/showFormForAdd").hasAnyRole("USER", "ADMIN")
-				.antMatchers("/students/update", "/students/delete").hasAnyRole("ADMIN").anyRequest().authenticated()
-				.and().formLogin().loginProcessingUrl("/login").successForwardUrl("/").permitAll().and().logout()
-				.logoutUrl("/logout").logoutSuccessUrl("/").permitAll().and().exceptionHandling()
-				.accessDeniedPage("/students/403").and().cors().and().csrf().disable();
+		http.authorizeRequests().antMatchers(POST, "/students/save").hasAnyRole("USER", "ADMIN") // #
+				.antMatchers("/", "/students/showFormForAdd").hasAnyRole("USER", "ADMIN") // #
+				.antMatchers("/students/update", "/students/delete").hasAnyRole("ADMIN").anyRequest().authenticated() // #
+				.and().formLogin().loginProcessingUrl("/login").successForwardUrl("/").permitAll() // #
+				.and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll() // #
+				.and().exceptionHandling().accessDeniedPage("/students/403") // #
+				.and().cors().and().csrf().disable();
 	}
 }

@@ -40,8 +40,8 @@ email_address varchar(255)
 );
 
 /*Inserting into users table*/
-INSERT INTO users(username, password, email_address) VALUES("vinay","$2a$10$K3Z7yYTcL2p7gx.DOzQffOOFA6mwJevET25vKOyFkEGdsPrqEHAHa","vinay@gmail.com");
-INSERT INTO users(username, password, email_address) VALUES("rakesh","$2a$10$yGpvt/NpoumNrISx60Yd/.zEMgcaYK5r/sP1MolNJdn8i8Au6FPoq","rakesh@gmail.com");
+INSERT INTO users(username, password, email_address) VALUES("user","$2a$10$K3Z7yYTcL2p7gx.DOzQffOOFA6mwJevET25vKOyFkEGdsPrqEHAHa","user@gmail.com");
+INSERT INTO users(username, password, email_address) VALUES("admin","$2a$10$yGpvt/NpoumNrISx60Yd/.zEMgcaYK5r/sP1MolNJdn8i8Au6FPoq","admin@gmail.com");
 
 /*Creating users_roles table*/
 CREATE TABLE IF NOT EXISTS users_roles(
